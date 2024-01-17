@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function cb(selection) {
+            $.getJSON({
+                url: "/dash/chart3D/callback", data: { 'data': selection }, success: function (result) {
+                    Plotly.newPlot('chart', result, {});;
+                }
+            });
+        }
+    </script>
+</head>
+
+<body style="font-family:arial, sans-; color: #484848 " id="body">
+    <H1> Sentiment </H1>
+    <li><a href="/dash/linechart">Dashboard line</a></li>
+    <li><a href="/dash/piechart"> Dashboard pie </a></li>
+    <H2 id="notification">Please type your word below </H2>
+
+
+    <input type="text" id="fname" name="fname" onchange="cb(this.value)">
+
+    <div id="chart" class="chart"></div>
+    <div id="png_chart"></div>
+</body>
+
+<script>
+    //cb("United Kingdom");
+    var body = document.getElementById("body");
+    var value =  document.getElementById("fname").value;
+    let notificationBar = document.getElementById("notification").innerHTML;
+
+    const getEnterKey = (e) => {
+        if (e.key == Enter) {
+           <!--notificationBar = cb("United Kingdom");-->
+        }
+    }
+    document.addEventListener('keydown', getEnterKey);
+</script>
+
+</html>
